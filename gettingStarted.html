@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coolfee ☕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scss/style.css">
+  <link rel="stylesheet" href="scss/responsive.css">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+
+<body>
+  <header data-includes="includes/header.html"></header>
+  <main style="font-size: 15px;">
+    <div aria-hidden="true" class="hspacer x2"></div>
+    <c-container>
+      <h1>Welcome to Coolfee.</h1>
+      <c-row>
+        <c-column d-10 md-12>
+          <p>
+            The purpose of this project is to offer a client-side code runner with built-in testing capabilities. Its primary objective is to assist educators in providing students with a convenient way to assess their skills and identify areas of improvement. By sharing a link containing both a base code and corresponding tests, students can effectively evaluate their understanding and identify errors. This process allows students to gain practical experience with unit tests without the need for specific development platforms or the installation of dependencies.
+          </p>
+          <p>
+            Our testing methodology draws inspiration from Jest's syntax, albeit with certain limitations. It is important to note that our implementation is not as extensive as Jest, which benefits from a vast community and operates within a NodeJS environment rather than a browser.
+          </p>
+        </c-column>
+        <c-column d-2 md-none>
+          <img src="img/logo.svg" alt="Coolfee logo" style="filter: brightness(0) invert(1);width: 100%;">
+        </c-column>
+        <c-column d-4 md-12>
+          <div aria-hidden="true" class="hspacer x3" d-none md-block></div>
+          <img src="img/code.png" alt="Image showing code within the Coolfee interface" class="example">
+        </c-column>
+        <c-column d-8 md-12>
+          <div aria-hidden="true" class="hspacer x3" md-none></div>
+          <p>Coolfee offers an ideal platform for testing and enhancing your JavaScript skills by accepting vanilla JavaScript code. It provides a seamless environment where you can effectively tackle technical challenges and elevate your programming proficiency.</p>
+        </c-column>
+        <div aria-hidden="true" class="hspacer x3" xs-none sm-none md-none></div>
+        <c-column d-5 md-12 d-none md-block>
+          <div aria-hidden="true" class="hspacer x3"></div>
+          <img src="img/tests.png" alt="Image showing tests within the Coolfee interface" class="example">
+        </c-column>
+        <c-column d-7 md-12>
+          <div aria-hidden="true" class="hspacer x6" md-none></div>
+          <p>Tests can incorporate various methods to ensure accurate comparisons. For instance, the "toBe" method enables direct comparisons, while the "toEqual" method facilitates comprehensive comparisons. Additionally, the "toBeCloseTo" method allows for comparisons that assess whether a value is sufficiently close in proximity.</p>
+        </c-column>
+        <c-column d-5 md-12 d-block md-none>
+          <img src="img/tests.png" alt="Image showing tests within the Coolfee interface" class="example">
+        </c-column>
+      </c-row>
+    </c-container>
+    <section style="text-align: center;display: block;">
+      <div class="hspacer x2"></div>
+      <a class="btn outline big" href="documentation.html">Full documentation</a>
+      <div class="hspacer" d-none xs-block></div>
+      <a class="btn info big" href="/">Try it!</a>
+    </section>
+  </main>
+  <footer data-includes="includes/footer.html"></footer>
+  <script src="aux/data-loader.js"></script>
+</body>
+
+</html>

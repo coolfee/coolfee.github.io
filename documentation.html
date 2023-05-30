@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coolfee ☕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scss/style.css">
+  <link rel="stylesheet" href="scss/responsive.css">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+
+<body>
+  <header data-includes="includes/header.html"></header>
+  <main style="font-size: 15px;">
+    <div aria-hidden="true" class="hspacer x2"></div>
+    <c-container>
+      <c-row>
+        <c-column d-10 md-9 sm-8 xs-12>
+          <h1>Full documentation</h1>
+          <p>
+            The purpose of this project is to offer a client-side code runner with built-in testing capabilities. Its primary objective is to assist educators in providing students with a convenient way to assess their skills and identify areas of improvement. By sharing a link containing both a base code and corresponding tests, students can effectively evaluate their understanding and identify errors. This process allows students to gain practical experience with unit tests without the need for specific development platforms or the installation of dependencies.
+          </p>
+          <p>
+            Our testing methodology draws inspiration from Jest's syntax, albeit with certain limitations. It is important to note that our implementation is not as extensive as Jest, which benefits from a vast community and operates within a NodeJS environment rather than a browser.
+          </p>
+          <span id="writingtests">
+            <h2>Writing tests</h2>
+            <p>Our test framework is based on Jest syntax, which is this:</p>
+            <code>
+describe('test "someFunction"', () => {
+  it('test cases when functions raises errors', () => {
+    expect(() => someFunction(1, 2, 3)).toThrow("some error message");
+    expect(() => someFunction(false)).toThrow();
+  });
+
+  it('test if function works with an array of positive numbers', () => {
+    expect(someFunction([1, 2, 3])).toBe(6);
+  });
+});
+
+//other tests
+//describe(....);
+            </code>
+            <p>
+              When you write and run your tests, the code and tests are appended to the URL.
+              This allows you to easily share the URL with others, enabling them to utilize your test cases and enhance their JavaScript skills.
+            </p>
+            <p>
+              Similarly, the process works the other way around as well! People can copy the URL and share it back with you, allowing you to assist them in understanding the type of error they are encountering with Coolfee.
+            </p>
+            <p>Tip: you might wanna shorten the URL before sharing using some URL-shortening service like <em>t.ly</em>.</em></p>
+          </span>
+          <span id="matchers">
+            <h2>Matchers</h2>
+            <p>
+              By now, you may have noticed that we employ <em>matchers</em> to validate conditions related to JavaScript functions.
+              This approach enables us to verify the expected returns and errors that our functions should or should not produce.
+            </p>
+            <p>
+              The syntax for the expect...to call is:
+              <code>
+expect(*someValue*).*someMatcher*(*anotherValue*);
+              </code>
+            </p>
+            <p>
+              Now you can lean how to use every kind of matcher our framework allows:
+            </p>
+
+            <span class="p" id="mtoBe">
+              <h3>toBe (strictly-equal)</h3>
+              <p>
+                The <em>toBe</em> matcher allows you to check for <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality">strict-equality</a> (===), but it also kindly supports <em>objects</em> and <em>arrays</em> by using JSON stringify on both sides.
+                Of course, for objects and arrays it is not the best approach, because the JSON <em>string</em> might differ from the original variable in a way it will fail, but should not.
+              </p>
+              Sample code:
+              <code>
+describe('test "someFunction"', () => {
+  it('test if function works with an array of positive numbers', () => {
+    expect(someFunction([1, 2, 3])).toBe(6);
+  });
+});
+              </code>
+            </span>
+            <div class="hspacer x2"></div>
+            <hr>
+
+            <span class="p" id="mtoEqual">
+              <h3>toEqual (<em>object</em> or <em>array</em> comparison)</h3>
+              <p>
+                The <em>toEqual</em> matcher allows you to check for equality, but takes into consideration <em>object</em>/<em>array</em> comparison (deep-equality) and <em>number</em> to <em>string</em> comparison (parseFloat).
+                At the end, if these types are not match, it tries a simple equality comparison (==).
+              </p>
+              Sample code:
+              <code>
+describe('test "someFunction"', () => {
+  it('test if function works with a string', () => {
+    expect(someFunction("Lucas")).toEqual({name: "Lucas", birthday: '1990-09-07'});
+  });
+});
+              </code>
+            </span>
+            <div class="hspacer x2"></div>
+            <hr>
+
+            <span class="p" id="mtoBeCloseTo">
+              <h3>toBeCloseTo (<em>floating-point</em> comparison)</h3>
+              <p>
+                The <em>toBeCloseTo</em> matcher check for number proximity. The default precision is 2 (decimal places) but you can set some specific precision to work with.<br>
+                What it does is check if the two values are close enough, because JavaScript can be <a href="https://web.archive.org/https://www.codemag.com/article/1811041/JavaScript-Corner-Math-and-the-Pitfalls-of-Floating-Point-Numbers">tricky</a> with floating-point precision.
+              </p>
+              Sample code:
+              <code>
+describe('test "sum"', () => {
+  it('test if function can sum floating-point numbers', () => {
+    expect(sum(0.1, 0.2)).toBeCloseTo(0.3, 3);
+  });
+});
+              </code>
+            </span>
+            <div class="hspacer x2"></div>
+            <hr>
+
+            <span class="p" id="mtoBeUndefined">
+              <h3>toBeUndefined</h3>
+              <p>
+                Of course you may use the <em>typeof</em> constructor and the <em>toBe</em> matcher, but it just feel right to compare undefined values with a dedicated matcher, right?<br>
+                It fails only if the value is not undefined.
+              </p>
+              Sample code:
+              <code>
+describe('test "someFunction"', () => {
+  it('test if function exists', () => {
+    expect(someFunction).not.toBeUndefined();
+  });
+  it('test if function is type function', () => {
+    expect(typeof someFunction).toBe("function");
+  });
+  it('test if function returns undefined if a negative numbers is supplied', () => {
+    expect(someFunction(-1)).toBeUndefined();
+  });
+});
+              </code>
+            </span>
+            <div class="hspacer x2"></div>
+            <hr>
+
+            <span class="p" id="mtoThrow">
+              <h3>toThrow (an error)</h3>
+              <p>
+                This matcher checks if a function fails generally or specifically, with an optional error message supplied.<br>
+                Notice: you need to wrap the function call in a function itself, otherwise the test will raise an error to the platform instead of catching it.
+              </p>
+              Sample code:
+              <code>
+describe('test "thatFunction"', () => {
+  it('test if thatFunction fails when called with negative numbers', () => {
+    expect(thatFunction(-1)).toThrow(); //generally
+    expect(thatFunction(-1)).toThrow("Negative numbers are not allowed"); //specifically
+  });
+  it('test if thatFunction DON'T fail when called with positive numbers', () => {
+    expect(thatFunction(1)).not.toThrow();
+  });
+});
+              </code>
+            </span>
+            <div class="hspacer x2"></div>
+            <hr>
+
+            <span class="p" id="mnot">
+              <h3>not (prefix)</h3>
+              <p>
+                The <em>expect</em> method allows you to combine it with the <em>not</em> prefix.<br>
+                This means you can negate matchers, by testing the opposite of what they meant to.
+              </p>
+              Sample code:
+              <code>
+describe('test "thatFunction"', () => {
+  it('test if thatFunction is defined', () => {
+    expect(thatFunction).not.toBeUndefined();
+  });
+  it('test if thatFunction DON'T fail when called with positive numbers', () => {
+    expect(thatFunction(1)).not.toThrow();
+  });
+  it('test if thatFunction does not return 0 when called with positive numbers', () => {
+    expect(thatFunction(2)).not.toBe(0);
+  });
+});
+              </code>
+            </span>
+            <div class="hspacer x2"></div>
+            <hr>
+
+          </span>
+        </c-column>
+        <c-column d-2 md-3 sm-4 xs-12>
+          <nav id="sticky">
+            <ul>
+              <li><a href="#writingtests">Writing tests</a></li>
+              <li><a href="#matchers">Using matchers</a></li>
+              <li class="p"><a href="#mtoBe">toBe</a></li>
+              <li class="p"><a href="#mtoEqual">toEqual</a></li>
+              <li class="p"><a href="#mtoBeCloseTo">toBeCloseTo</a></li>
+              <li class="p"><a href="#mtoBeUndefined">toBeUndefined</a></li>
+              <li class="p"><a href="#mtoThrow">toThrow</a></li>
+              <li class="p"><a href="#mnot">not</a></li>
+            </ul>
+          </nav>
+        </c-column>
+      </c-row>
+    </c-container>
+  </main>
+  <footer data-includes="includes/footer.html"></footer>
+  <script src="aux/data-loader.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<section class="logo">
+  <a href="/"><img src="img/logo.svg" alt="Coolfee logo"></a>
+  <a href="#" id="run">⏵ Run</a>
+</section>
+<nav>
+  <section class="lightToggle">
+    <label>
+      Light <span>mode</span> <input type="checkbox" id="light">
+    </label>
+  </section>
+  <a href="#" id="menuBtn" d-none xs-inline-block>Menu<span aria-hidden="true" class="hamburger"> ☰</span></a>
+  <ul>
+    <li><a href="gettingStarted.html">Getting started</a></li>
+    <li><a href="documentation.html">Documentation</a></li>
+    <li><a href="https://github.com/coolfee/coolfee.github.io">Collaborate</a></li>
+  </ul>
+</nav>
+<script>
+/*==================================
+======= Light-mode functions =======
+====================================*/
+if (typeof ls !== "undefined") {
+  light.addEventListener('change', () => {
+    ls.set('light', light.checked);
+    document.body.classList.toggle('light', light.checked);
+    codeEditor.setTheme(`ace/theme/${light.checked ? 'solarized_light': 'monokai'}`);
+    testsEditor.setTheme(`ace/theme/${light.checked ? 'solarized_light': 'monokai'}`);
+    runner.contentWindow.postMessage({
+      light: light.checked
+    }, '*');
+  });
+  if (ls.get('light')) {
+    light.checked = true;
+    light.dispatchEvent(new Event('change'));
+    runner.addEventListener("load", () => {
+      runner.contentWindow.postMessage({
+        light: light.checked
+      }, '*');
+    });
+  }
+}
+</script>
