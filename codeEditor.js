@@ -80,7 +80,7 @@ window.addEventListener('load-header', () => {
       code: codeEditor.getValue(),
       tests: testsEditor.getValue(),
     }, '*');
-    const saved = {code: codeEditor.getValue(), tests: testsEditor.getValue()};
+    const saved = {...hash.load(), code: codeEditor.getValue(), tests: testsEditor.getValue()};
     hash.save(saved);
   });
 
@@ -90,4 +90,9 @@ window.addEventListener('load-header', () => {
       run.click();
     }
   });
+
+  const {autorun} = hash.load() || {autorun: false};
+  if (autorun) {
+    run.dispatchEvent(new Event('click'));
+  }
 });
