@@ -21,10 +21,12 @@ testsEditor.container.id = 'tests';
 /*==================================
 ====== Restore code from hash ======
 ====================================*/
+let recovered = false;
 if (window.location.hash && window.location.hash.length > 1) {
   const {code: scode, tests: stests} = hash.load() || {code: false, tests: false};
   if (scode) codeEditor.setValue(scode, -1);
   if (stests) testsEditor.setValue(stests, -1);
+  recovered = true;
 }
 
 /*==================================
@@ -59,7 +61,7 @@ dragger.addEventListener("dragend", (event) => {
 /*==================================
 ======= Show welcome message =======
 ====================================*/
-if (!ls.get('welcome')) {
+if (!recovered && !ls.get('welcome')) {
   welcome.show();
   welcome.querySelector('footer button').focus();
 }
