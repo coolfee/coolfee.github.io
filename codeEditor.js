@@ -24,8 +24,10 @@ testsEditor.container.id = 'tests';
 let recovered = false;
 if (window.location.hash && window.location.hash.length > 1) {
   const {code: scode, tests: stests} = hash.load() || {code: false, tests: false};
-  if (scode) codeEditor.setValue(scode, -1);
-  if (stests) testsEditor.setValue(stests, -1);
+  if (scode || stests){
+    codeEditor.setValue(scode || '', -1);
+    testsEditor.setValue(stests || '', -1);
+  }
   recovered = true;
 }
 
