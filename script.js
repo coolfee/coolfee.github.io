@@ -21,7 +21,7 @@ const hash = (function (window) {
       }
     },
     save: function (obj) {
-      window.location.replace('#' + JSON.stringify(obj));
+      window.location.replace('#' + encodeURIComponent(JSON.stringify(obj)));
     }
   };
 })(window);
